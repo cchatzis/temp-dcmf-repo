@@ -19,4 +19,4 @@ pip install jupyter ipykernel notebook
 python -m ipykernel install --user --name=myenv --display-name "Python (myenv)"
 
 # Launch Jupyter Notebook
-jupyter-notebook --NotebookApp.use_redirect_file=False dCMF.ipynb --debug
+jupyter-notebook --NotebookApp.use_redirect_file=False dCMF.ipynb
