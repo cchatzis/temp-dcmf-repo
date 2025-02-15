@@ -9,6 +9,7 @@ py -3.10 -m venv myenv
 call myenv\Scripts\activate.bat
 
 pip install jupyter ipykernel
+pip install --no-cache-dir -r requirements.txt
 python -m ipykernel install --user --name=myenv --display-name "Python (myenv)"
 
 :: Launch Jupyter Notebook
