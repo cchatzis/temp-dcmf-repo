@@ -709,3 +709,36 @@ def plot_factors(factors):
     ax_C.grid()
 
     plt.show()
+
+
+def plot_convergence(diagnostics,regs,best_run_index):
+
+    total_plots = 2 + sum([len(r) for r in regs])
+
+    fig, axs = plt.subplots(1, total_plots, figsize=(5*total_plots, 5))
+
+    axs[0].plot(diagnostics[best_run_index].rec_errors)
+    axs[0].set_title("Reconstruction error")
+    axs[0].set_xlabel("Iteration")
+    axs[0].set_ylabel("Loss")
+
+    axs[1].plot(diagnostics[best_run_index].regularized_loss)
+    axs[1].set_title("Regularized Loss")
+    axs[1].set_xlabel("Iteration")
+    axs[1].set_ylabel("Loss")
+
+    total_plots = 2
+
+    for mode,reg in enumerate(regs):
+        for reg_i,reg in enumerate(regs[mode]):
+            axs[total_plots].plot([u[mode][reg_i] for u in diagnostics[best_run_index].feasibility_gaps])
+            axs[total_plots].set_title(f'{reg.__class__.__name__} feasibility gap (mode {mode})')
+            axs[total_plots].set_xlabel("Iteration")
+            axs[total_plots].set_ylabel("Feasibility gap")
+            if reg.__class__.__name__ != 'NonNegativity':
+                axs[total_plots].set_yscale('log')
+
+            total_plots+=1
+
+    plt.tight_layout()
+    plt.show()
